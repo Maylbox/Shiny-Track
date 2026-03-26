@@ -137,9 +137,11 @@ function getSpriteUrl(name: string) {
 
 function StatCard({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="rounded-2xl border-4 border-slate-900 bg-slate-100 p-4 shadow-[6px_6px_0_0_rgba(15,23,42,1)]">
-      <div className="text-[11px] uppercase tracking-[0.25em] text-slate-500">{label}</div>
-      <div className="mt-2 text-2xl font-black text-slate-900 sm:text-3xl">{value}</div>
+    <div className="rounded-2xl border-4 border-slate-900 bg-slate-100 p-3 sm:p-4 shadow-[5px_5px_0_0_rgba(15,23,42,1)]">
+      <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.25em] text-slate-500">
+        {label}
+      </div>
+      <div className="mt-2 text-xl font-black text-slate-900 sm:text-3xl break-words">{value}</div>
       {sub ? <div className="mt-1 text-xs text-slate-600">{sub}</div> : null}
     </div>
   );
@@ -164,21 +166,23 @@ function Stepper({
       <div className="flex items-center gap-2">
         <button
           onClick={() => onChange(clamp(value - 1, min, max))}
-          className="rounded-xl border-4 border-slate-900 bg-slate-200 p-2 transition hover:-translate-y-0.5"
+          className="shrink-0 rounded-xl border-4 border-slate-900 bg-slate-200 p-2 transition hover:-translate-y-0.5"
         >
           <Minus className="h-4 w-4" />
         </button>
+
         <input
           value={value}
           onChange={(e) => onChange(clamp(Number(e.target.value || 0), min, max))}
-          className="min-w-0 flex-1 rounded-xl border-4 border-slate-900 bg-yellow-100 px-3 py-2 text-center text-lg font-black outline-none"
+          className="min-w-0 flex-1 rounded-xl border-4 border-slate-900 bg-yellow-100 px-2 sm:px-3 py-2 text-center text-base sm:text-lg font-black outline-none"
           type="number"
           min={min}
           max={max}
         />
+
         <button
           onClick={() => onChange(clamp(value + 1, min, max))}
-          className="rounded-xl border-4 border-slate-900 bg-slate-200 p-2 transition hover:-translate-y-0.5"
+          className="shrink-0 rounded-xl border-4 border-slate-900 bg-slate-200 p-2 transition hover:-translate-y-0.5"
         >
           <Plus className="h-4 w-4" />
         </button>
@@ -262,30 +266,34 @@ export default function App() {
   const spriteUrl = useMemo(() => getSpriteUrl(targetPokemon), [targetPokemon]);
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,#1d4ed8_0%,#60a5fa_45%,#fef08a_46%,#fde68a_100%)] p-4 text-slate-900 sm:p-6">
+    <div className="min-h-screen bg-[linear-gradient(180deg,#1d4ed8_0%,#60a5fa_45%,#fef08a_46%,#fde68a_100%)] px-3 py-3 text-slate-900 sm:p-6">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-6 rounded-[28px] border-4 border-slate-900 bg-white/90 p-5 shadow-[8px_8px_0_0_rgba(15,23,42,1)] backdrop-blur">
+        <div className="mb-4 sm:mb-6 rounded-[24px] sm:rounded-[28px] border-4 border-slate-900 bg-white/90 p-4 sm:p-5 shadow-[6px_6px_0_0_rgba(15,23,42,1)] sm:shadow-[8px_8px_0_0_rgba(15,23,42,1)] backdrop-blur">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.3em] text-sky-700">
+              <div className="flex items-center gap-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] sm:tracking-[0.3em] text-sky-700">
                 <Sparkles className="h-4 w-4" /> ORAS Shiny Hunter
               </div>
-              <h1 className="mt-2 text-3xl font-black sm:text-5xl">Pixel hunt tracker</h1>
+              <h1 className="mt-2 text-2xl font-black leading-tight sm:text-5xl">Pixel hunt tracker</h1>
               <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
                 Start with ORAS DexNav and soft resets now, then expand later into other generations and methods.
               </p>
             </div>
 
             <div className="rounded-2xl border-4 border-slate-900 bg-yellow-200 px-4 py-3 text-center shadow-[5px_5px_0_0_rgba(15,23,42,1)]">
-              <div className="text-[11px] font-black uppercase tracking-[0.25em] text-slate-700">Current target</div>
-              <div className="mt-1 text-2xl font-black">{titleCasePokemonName(targetPokemon)}</div>
+              <div className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] sm:tracking-[0.25em] text-slate-700">
+                Current target
+              </div>
+              <div className="mt-1 text-xl sm:text-2xl font-black break-words">
+                {titleCasePokemonName(targetPokemon)}
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="grid gap-6 xl:grid-cols-[380px,1fr]">
+        <div className="grid gap-4 sm:gap-6 xl:grid-cols-[340px,1fr]">
           <aside className="space-y-4">
-            <div className="rounded-[28px] border-4 border-slate-900 bg-emerald-200 p-4 shadow-[8px_8px_0_0_rgba(15,23,42,1)]">
+            <div className="rounded-[24px] sm:rounded-[28px] border-4 border-slate-900 bg-emerald-200 p-4 shadow-[6px_6px_0_0_rgba(15,23,42,1)] sm:shadow-[8px_8px_0_0_rgba(15,23,42,1)]">
               <div className="mb-3 flex items-center gap-2 text-sm font-black uppercase tracking-[0.2em]">
                 <Settings2 className="h-4 w-4" /> Settings
               </div>
@@ -318,7 +326,8 @@ export default function App() {
 
                 <div className="rounded-2xl border-4 border-slate-900 bg-white p-3 shadow-[5px_5px_0_0_rgba(15,23,42,1)]">
                   <div className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">Target Pokémon</div>
-                  <div className="flex gap-2">
+
+                  <div className="flex flex-col gap-2 sm:flex-row">
                     <div className="relative flex-1">
                       <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
                       <input
@@ -328,6 +337,7 @@ export default function App() {
                         className="w-full rounded-xl border-4 border-slate-900 bg-sky-100 py-2 pl-9 pr-3 text-sm font-bold outline-none"
                       />
                     </div>
+
                     <button
                       onClick={() => setTargetPokemon(pokemonQuery.trim().toLowerCase() || "ralts")}
                       className="rounded-xl border-4 border-slate-900 bg-slate-900 px-4 py-2 text-sm font-black text-white transition hover:-translate-y-0.5"
@@ -335,6 +345,7 @@ export default function App() {
                       Set
                     </button>
                   </div>
+
                   <div className="mt-3 flex flex-wrap gap-2">
                     {STARTERS.map((name) => (
                       <button
@@ -343,7 +354,7 @@ export default function App() {
                           setPokemonQuery(name);
                           setTargetPokemon(name);
                         }}
-                        className="rounded-full border-4 border-slate-900 bg-yellow-100 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] transition hover:-translate-y-0.5"
+                        className="rounded-full border-4 border-slate-900 bg-yellow-100 px-3 py-1 text-[11px] sm:text-xs font-black uppercase tracking-[0.12em] transition hover:-translate-y-0.5"
                       >
                         {titleCasePokemonName(name)}
                       </button>
@@ -368,7 +379,7 @@ export default function App() {
                   <div className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
                     Current search level
                   </div>
-                  <div className="text-3xl font-black text-slate-900">{searchLevel}</div>
+                  <div className="text-2xl sm:text-3xl font-black text-slate-900">{searchLevel}</div>
                   <div className="mt-1 text-xs text-slate-600">
                     Auto-calculated from start search level + encounters.
                   </div>
@@ -378,57 +389,69 @@ export default function App() {
                   <div className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
                     Current chain
                   </div>
-                  <div className="text-3xl font-black text-slate-900">{chain}</div>
+                  <div className="text-2xl sm:text-3xl font-black text-slate-900">{chain}</div>
                   <div className="mt-1 text-xs text-slate-600">
                     Automatically linked to encounter count.
                   </div>
                 </div>
 
-                <label className="flex cursor-pointer items-center gap-3 rounded-2xl border-4 border-slate-900 bg-white p-4 shadow-[5px_5px_0_0_rgba(15,23,42,1)]">
+                <label className="flex cursor-pointer items-start gap-3 rounded-2xl border-4 border-slate-900 bg-white p-4 shadow-[5px_5px_0_0_rgba(15,23,42,1)]">
                   <input
                     type="checkbox"
                     checked={randomBoost}
                     onChange={(e) => setRandomBoost(e.target.checked)}
-                    className="h-5 w-5 accent-sky-600"
+                    className="mt-0.5 h-5 w-5 shrink-0 accent-sky-600"
                   />
                   <div>
                     <div className="text-sm font-black">Apply 4% random DexNav boost</div>
-                    <div className="text-xs text-slate-600">Use this when you want to model the boosted encounter case.</div>
+                    <div className="text-xs text-slate-600">
+                      Use this when you want to model the boosted encounter case.
+                    </div>
                   </div>
                 </label>
               </>
             ) : null}
           </aside>
 
-          <main className="space-y-6">
-            <div className="grid gap-6 lg:grid-cols-[1.15fr,0.85fr]">
-              <section className="rounded-[28px] border-4 border-slate-900 bg-slate-900 p-5 text-white shadow-[8px_8px_0_0_rgba(15,23,42,1)]">
-                <div className="grid gap-4 md:grid-cols-[320px,1fr] md:items-center">
-                  <div className="rounded-[24px] border-4 border-white/20 bg-[linear-gradient(180deg,#0f172a_0%,#1e293b_100%)] p-4">
-                    <div className="flex aspect-square min-h-[420px] items-center justify-center overflow-hidden rounded-[20px] border-4 border-dashed border-white/20 bg-slate-800">
+          <main className="space-y-4 sm:space-y-6">
+            <div className="grid gap-4 sm:gap-6 lg:grid-cols-[1.05fr,0.95fr]">
+              <section className="rounded-[24px] sm:rounded-[28px] border-4 border-slate-900 bg-slate-900 p-4 sm:p-5 text-white shadow-[6px_6px_0_0_rgba(15,23,42,1)] sm:shadow-[8px_8px_0_0_rgba(15,23,42,1)]">
+                <div className="grid gap-4 md:grid-cols-[260px,1fr] md:items-center lg:grid-cols-[280px,1fr]">
+                  <div className="rounded-[22px] sm:rounded-[24px] border-4 border-white/20 bg-[linear-gradient(180deg,#0f172a_0%,#1e293b_100%)] p-3 sm:p-4">
+                    <div className="flex aspect-square min-h-[230px] sm:min-h-[300px] md:min-h-[340px] items-center justify-center overflow-hidden rounded-[18px] sm:rounded-[20px] border-4 border-dashed border-white/20 bg-slate-800">
                       {spriteUrl && spriteOk ? (
                         <img
                           src={spriteUrl}
                           alt={targetPokemon}
                           onError={() => setSpriteOk(false)}
-                          className="max-h-[620px] scale-[3.8] sm:scale-[4.8] origin-center image-rendering-pixelated [image-rendering:pixelated]"
+                          className="max-h-[220px] scale-[2.1] sm:max-h-[360px] sm:scale-[3] md:max-h-[420px] md:scale-[3.5] origin-center image-rendering-pixelated [image-rendering:pixelated]"
                         />
                       ) : (
-                        <div className="text-center">
-                          <div className="text-lg font-black">No sprite found</div>
-                          <div className="mt-1 text-sm text-slate-300">Try a standard Pokémon name like ralts or poochyena.</div>
+                        <div className="px-3 text-center">
+                          <div className="text-base sm:text-lg font-black">No sprite found</div>
+                          <div className="mt-1 text-xs sm:text-sm text-slate-300">
+                            Try a standard Pokémon name like ralts or poochyena.
+                          </div>
                         </div>
                       )}
                     </div>
-                    <div className="mt-4 text-center text-xl font-black">{titleCasePokemonName(targetPokemon)}</div>
+                    <div className="mt-3 sm:mt-4 text-center text-lg sm:text-xl font-black">
+                      {titleCasePokemonName(targetPokemon)}
+                    </div>
                   </div>
 
                   <div>
-                    <div className="text-xs font-black uppercase tracking-[0.3em] text-sky-300">Live hunt panel</div>
-                    <div className="mt-3 text-6xl font-black leading-none sm:text-7xl">{progress.toLocaleString()}</div>
-                    <div className="mt-2 text-sm uppercase tracking-[0.22em] text-slate-300">encounters</div>
+                    <div className="text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] sm:tracking-[0.3em] text-sky-300">
+                      Live hunt panel
+                    </div>
+                    <div className="mt-2 sm:mt-3 text-5xl sm:text-6xl md:text-7xl font-black leading-none">
+                      {progress.toLocaleString()}
+                    </div>
+                    <div className="mt-2 text-xs sm:text-sm uppercase tracking-[0.18em] sm:tracking-[0.22em] text-slate-300">
+                      encounters
+                    </div>
 
-                    <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                    <div className="mt-4 sm:mt-5 grid gap-3 sm:grid-cols-2">
                       <StatCard label="Current odds" value={formatOdds(oddsDenominator)} sub="Per encounter" />
                       <StatCard
                         label="Hit chance"
@@ -437,24 +460,24 @@ export default function App() {
                       />
                     </div>
 
-                    <div className="mt-5 flex flex-wrap gap-3">
+                    <div className="mt-4 sm:mt-5 grid gap-3 sm:grid-cols-3">
                       <button
                         onClick={() => setProgress((v) => v + 1)}
-                        className="rounded-2xl border-4 border-slate-900 bg-emerald-300 px-5 py-3 text-sm font-black text-slate-900 shadow-[5px_5px_0_0_rgba(255,255,255,0.2)] transition hover:-translate-y-0.5"
+                        className="w-full rounded-2xl border-4 border-slate-900 bg-emerald-300 px-4 py-3 text-sm font-black text-slate-900 shadow-[5px_5px_0_0_rgba(255,255,255,0.2)] transition hover:-translate-y-0.5"
                       >
                         +1 Encounter
                       </button>
                       <button
                         onClick={() => setProgress((v) => v + 10)}
-                        className="rounded-2xl border-4 border-slate-900 bg-yellow-300 px-5 py-3 text-sm font-black text-slate-900 shadow-[5px_5px_0_0_rgba(255,255,255,0.2)] transition hover:-translate-y-0.5"
+                        className="w-full rounded-2xl border-4 border-slate-900 bg-yellow-300 px-4 py-3 text-sm font-black text-slate-900 shadow-[5px_5px_0_0_rgba(255,255,255,0.2)] transition hover:-translate-y-0.5"
                       >
                         +10 Encounters
                       </button>
                       <button
                         onClick={() => setProgress(0)}
-                        className="rounded-2xl border-4 border-slate-900 bg-rose-300 px-5 py-3 text-sm font-black text-slate-900 shadow-[5px_5px_0_0_rgba(255,255,255,0.2)] transition hover:-translate-y-0.5"
+                        className="w-full rounded-2xl border-4 border-slate-900 bg-rose-300 px-4 py-3 text-sm font-black text-slate-900 shadow-[5px_5px_0_0_rgba(255,255,255,0.2)] transition hover:-translate-y-0.5"
                       >
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center justify-center gap-2">
                           <RotateCcw className="h-4 w-4" /> Reset
                         </div>
                       </button>
@@ -463,9 +486,14 @@ export default function App() {
                 </div>
               </section>
 
-              <section className="rounded-[28px] border-4 border-slate-900 bg-pink-200 p-5 shadow-[8px_8px_0_0_rgba(15,23,42,1)]">
-                <div className="text-xs font-black uppercase tracking-[0.28em] text-slate-700">Method summary</div>
-                <div className="mt-2 text-2xl font-black">{METHOD_OPTIONS.find((m) => m.value === method)?.label}</div>
+              <section className="rounded-[24px] sm:rounded-[28px] border-4 border-slate-900 bg-pink-200 p-4 sm:p-5 shadow-[6px_6px_0_0_rgba(15,23,42,1)] sm:shadow-[8px_8px_0_0_rgba(15,23,42,1)]">
+                <div className="text-[10px] sm:text-xs font-black uppercase tracking-[0.24em] sm:tracking-[0.28em] text-slate-700">
+                  Method summary
+                </div>
+                <div className="mt-2 text-xl sm:text-2xl font-black">
+                  {METHOD_OPTIONS.find((m) => m.value === method)?.label}
+                </div>
+
                 <div className="mt-4 grid gap-3">
                   <StatCard label="Charm" value={shinyCharm ? "Enabled" : "Disabled"} />
                   {method === "dexnav" ? (
@@ -502,15 +530,17 @@ export default function App() {
             </div>
 
             {method === "dexnav" ? (
-              <section className="rounded-[28px] border-4 border-slate-900 bg-cyan-100 p-5 shadow-[8px_8px_0_0_rgba(15,23,42,1)]">
-                <div className="mb-4 flex items-center justify-between gap-4">
-                  <div>
-                    <div className="text-xs font-black uppercase tracking-[0.28em] text-slate-700">DexNav bonus panel</div>
-                    <h2 className="mt-1 text-2xl font-black">Extra encounter perks at search level {searchLevel}</h2>
-                    <p className="mt-1 text-sm text-slate-600">
-                      Started this chain at {startSearchLevel}, so your net gain is +{effectiveDexNavGain} search levels.
-                    </p>
+              <section className="rounded-[24px] sm:rounded-[28px] border-4 border-slate-900 bg-cyan-100 p-4 sm:p-5 shadow-[6px_6px_0_0_rgba(15,23,42,1)] sm:shadow-[8px_8px_0_0_rgba(15,23,42,1)]">
+                <div className="mb-4">
+                  <div className="text-[10px] sm:text-xs font-black uppercase tracking-[0.24em] sm:tracking-[0.28em] text-slate-700">
+                    DexNav bonus panel
                   </div>
+                  <h2 className="mt-1 text-xl sm:text-2xl font-black">
+                    Extra encounter perks at search level {searchLevel}
+                  </h2>
+                  <p className="mt-1 text-sm text-slate-600">
+                    Started this chain at {startSearchLevel}, so your net gain is +{effectiveDexNavGain} search levels.
+                  </p>
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -524,9 +554,12 @@ export default function App() {
               </section>
             ) : null}
 
-            <section className="rounded-[28px] border-4 border-slate-900 bg-white p-5 shadow-[8px_8px_0_0_rgba(15,23,42,1)]">
-              <div className="text-xs font-black uppercase tracking-[0.28em] text-slate-700">Starter roadmap</div>
-              <h2 className="mt-1 text-2xl font-black">What to build next</h2>
+            <section className="rounded-[24px] sm:rounded-[28px] border-4 border-slate-900 bg-white p-4 sm:p-5 shadow-[6px_6px_0_0_rgba(15,23,42,1)] sm:shadow-[8px_8px_0_0_rgba(15,23,42,1)]">
+              <div className="text-[10px] sm:text-xs font-black uppercase tracking-[0.24em] sm:tracking-[0.28em] text-slate-700">
+                Starter roadmap
+              </div>
+              <h2 className="mt-1 text-xl sm:text-2xl font-black">What to build next</h2>
+
               <div className="mt-4 grid gap-4 md:grid-cols-3">
                 <div className="rounded-2xl border-4 border-slate-900 bg-yellow-100 p-4">
                   <div className="text-sm font-black">1. Save hunts locally</div>
@@ -534,12 +567,14 @@ export default function App() {
                     Store progress, target, method, charm, search level, and chain in localStorage so the tracker survives refreshes.
                   </p>
                 </div>
+
                 <div className="rounded-2xl border-4 border-slate-900 bg-emerald-100 p-4">
                   <div className="text-sm font-black">2. Add more methods</div>
                   <p className="mt-2 text-sm text-slate-700">
                     Masuda, Friend Safari, Pokeradar, full odds, SOS, chain fishing, sandwiches later for newer games.
                   </p>
                 </div>
+
                 <div className="rounded-2xl border-4 border-slate-900 bg-sky-100 p-4">
                   <div className="text-sm font-black">3. Add game-specific logic</div>
                   <p className="mt-2 text-sm text-slate-700">
