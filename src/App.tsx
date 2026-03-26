@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search, Sparkles, Plus, Minus, RotateCcw, Settings2, ChevronDown } from "lucide-react";
 
 const DEXNAV_TABLE = {
