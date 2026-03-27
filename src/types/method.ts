@@ -1,4 +1,4 @@
-export type MethodId = "random" | "dexnav";
+export type MethodId = "random" | "dexnav" | "horde";
 
 export type MethodCalculationInput = {
   shinyCharm: boolean;
