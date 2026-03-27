@@ -26,7 +26,9 @@ export default function PokemonPanel({
       <div className="grid gap-4 md:grid-cols-[260px,1fr] md:items-center lg:grid-cols-[280px,1fr]">
         <div className="rounded-[22px] sm:rounded-[24px] border-4 border-white/20 bg-[linear-gradient(180deg,#0f172a_0%,#1e293b_100%)] p-3 sm:p-4">
           <div className="mb-3 rounded-2xl border-4 border-slate-900 bg-white p-3 shadow-[5px_5px_0_0_rgba(15,23,42,1)]">
-            <div className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">Target Pokémon</div>
+            <div className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
+              Target Pokémon
+            </div>
 
             <div className="flex flex-col gap-2 sm:flex-row">
               <div className="relative flex-1">
@@ -40,7 +42,10 @@ export default function PokemonPanel({
               </div>
 
               <button
-                onClick={() => setTargetPokemon(pokemonQuery.trim().toLowerCase() || "ralts")}
+                onClick={() => {
+                  setTargetPokemon(pokemonQuery.trim().toLowerCase() || "ralts");
+                  setSpriteOk(true);
+                }}
                 className="rounded-xl border-4 border-slate-900 bg-slate-900 px-4 py-2 text-sm font-black text-white transition hover:-translate-y-0.5"
               >
                 Set
@@ -54,6 +59,7 @@ export default function PokemonPanel({
                   onClick={() => {
                     setPokemonQuery(name);
                     setTargetPokemon(name);
+                    setSpriteOk(true);
                   }}
                   className="rounded-full border-4 border-slate-900 bg-yellow-100 px-3 py-1 text-[11px] sm:text-xs font-black uppercase tracking-[0.12em] text-slate-900 transition hover:-translate-y-0.5"
                 >

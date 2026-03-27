@@ -9,9 +9,10 @@ import { GEN_OPTIONS } from "./data/generations";
 import { METHOD_OPTIONS, METHOD_REGISTRY } from "./methods/registry";
 import { clamp } from "./utils/math";
 import { titleCasePokemonName } from "./utils/pokemon";
+import type { MethodId } from "./types/method";
 
 export default function App() {
-  const [method, setMethod] = useState<"random" | "dexnav">("dexnav");
+  const [method, setMethod] = useState<MethodId>("dexnav");
   const [generation, setGeneration] = useState("6");
   const [shinyCharm, setShinyCharm] = useState(true);
   const [randomBoost, setRandomBoost] = useState(false);
@@ -20,10 +21,6 @@ export default function App() {
   const [pokemonQuery, setPokemonQuery] = useState("ralts");
   const [targetPokemon, setTargetPokemon] = useState("ralts");
   const [spriteOk, setSpriteOk] = useState(true);
-
-  useEffect(() => {
-    setSpriteOk(true);
-  }, [targetPokemon]);
 
   const chain = useMemo(() => progress, [progress]);
 
@@ -41,8 +38,9 @@ export default function App() {
       progress,
       startSearchLevel,
       randomBoost,
+      chain,
     });
-  }, [method, shinyCharm, progress, startSearchLevel, randomBoost]);
+  }, [method, shinyCharm, progress, startSearchLevel, randomBoost, chain]);
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,#1d4ed8_0%,#60a5fa_45%,#fef08a_46%,#fde68a_100%)] px-3 py-3 text-slate-900 sm:p-6">
@@ -79,7 +77,12 @@ export default function App() {
 
               <div className="space-y-3">
                 <Select label="Generation" value={generation} onChange={setGeneration} options={GEN_OPTIONS} />
-                <Select label="Method" value={method} onChange={(value) => setMethod(value as "random" | "dexnav")} options={METHOD_OPTIONS} />
+                <Select
+                  label="Method"
+                  value={method}
+                  onChange={(value) => setMethod(value as MethodId)}
+                  options={METHOD_OPTIONS}
+                />
 
                 <div className="rounded-2xl border-4 border-slate-900 bg-white p-3 shadow-[5px_5px_0_0_rgba(15,23,42,1)]">
                   <div className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">Shiny Charm</div>

@@ -1,10 +1,21 @@
-export type MethodId = "random" | "dexnav" | "horde";
+export type MethodId =
+  | "random"
+  | "dexnav"
+  | "horde"
+  | "masuda"
+  | "chain_fishing"
+  | "friend_safari";
 
 export type MethodCalculationInput = {
   shinyCharm: boolean;
   progress: number;
+
+  // DexNav-specific
   startSearchLevel?: number;
   randomBoost?: boolean;
+
+  // Optional generic chain support
+  chain?: number;
 };
 
 export type MethodCalculationResult = {
