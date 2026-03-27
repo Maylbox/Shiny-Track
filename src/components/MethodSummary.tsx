@@ -2,9 +2,10 @@ import StatCard from "./StatCard";
 import { formatOdds } from "../utils/format";
 import { getDexNavBoosts, getDexNavBracket } from "../methods/dexnav";
 import { METHOD_OPTIONS } from "../methods/registry";
+import type { MethodId } from "../types/method";
 
 type MethodSummaryProps = {
-  method: "random" | "dexnav";
+  method: MethodId;
   shinyCharm: boolean;
   randomBoost: boolean;
   searchLevel: number;

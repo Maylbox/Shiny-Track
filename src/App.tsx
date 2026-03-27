@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Sparkles, Settings2 } from "lucide-react";
 import Select from "./components/Select";
 import Stepper from "./components/Stepper";
