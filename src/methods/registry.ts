@@ -1,13 +1,15 @@
-import type { MethodOption } from "../types/method";
-import { dexnavMethod } from "./dexnav";
-import { randomMethod } from "./random";
+import { HordeMethod } from "./horde";
+import { DexNavMethod } from "./dexnav";
+import { RandomMethod } from "./random";
 
-export const METHOD_OPTIONS: MethodOption[] = [
-  { value: "random", label: "Random / Soft Reset" },
-  { value: "dexnav", label: "DexNav" },
+export const METHODS = [
+  RandomMethod,
+  DexNavMethod,
+  HordeMethod, 
 ];
 
-export const METHOD_REGISTRY = {
-  random: randomMethod,
-  dexnav: dexnavMethod,
-};
+export const METHOD_OPTIONS = [
+  { value: "random", label: "Random / Soft Reset" },
+  { value: "dexnav", label: "DexNav" },
+  { value: "horde", label: "Horde Encounters" },
+];
