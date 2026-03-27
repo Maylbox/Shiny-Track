@@ -8,5 +8,5 @@ export function titleCasePokemonName(name: string) {
 export function getSpriteUrl(name: string) {
   if (!name) return "";
   const normalized = name.trim().toLowerCase();
-  return `https://play.pokemonshowdown.com/sprites/ani/${normalized}.gif`;
+  return `https://play.pokemonshowdown.com/sprites/ani-shiny/${normalized}.gif`;
 }
