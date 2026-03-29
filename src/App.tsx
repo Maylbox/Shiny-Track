@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Sparkles, Settings2 } from "lucide-react";
 import Select from "./components/Select";
 import Stepper from "./components/Stepper";
@@ -9,11 +9,12 @@ import { GEN_OPTIONS } from "./data/generations";
 import { METHOD_OPTIONS, METHOD_REGISTRY } from "./methods/registry";
 import { clamp } from "./utils/math";
 import { titleCasePokemonName } from "./utils/pokemon";
+import type { GenerationId } from "./types/app";
 import type { MethodId } from "./types/method";
 
 export default function App() {
   const [method, setMethod] = useState<MethodId>("dexnav");
-  const [generation, setGeneration] = useState("6");
+  const [generation, setGeneration] = useState<GenerationId>("6");
   const [shinyCharm, setShinyCharm] = useState(true);
   const [randomBoost, setRandomBoost] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -21,6 +22,21 @@ export default function App() {
   const [pokemonQuery, setPokemonQuery] = useState("ralts");
   const [targetPokemon, setTargetPokemon] = useState("ralts");
   const [spriteOk, setSpriteOk] = useState(true);
+
+  const availableMethods = useMemo(() => {
+    return METHOD_OPTIONS.filter((option) => option.generations.includes(generation));
+  }, [generation]);
+
+  useEffect(() => {
+    const methodStillValid = availableMethods.some((option) => option.value === method);
+
+    if (!methodStillValid && availableMethods.length > 0) {
+      setMethod(availableMethods[0].value);
+      setProgress(0);
+      setStartSearchLevel(0);
+      setRandomBoost(false);
+    }
+  }, [generation, method, availableMethods]);
 
   const chain = useMemo(() => progress, [progress]);
 
@@ -42,6 +58,8 @@ export default function App() {
     });
   }, [method, shinyCharm, progress, startSearchLevel, randomBoost, chain]);
 
+  const isDexNav = method === "dexnav";
+
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,#1d4ed8_0%,#60a5fa_45%,#fef08a_46%,#fde68a_100%)] px-3 py-3 text-slate-900 sm:p-6">
       <div className="mx-auto max-w-7xl">
@@ -49,11 +67,11 @@ export default function App() {
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <div className="flex items-center gap-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] sm:tracking-[0.3em] text-sky-700">
-                <Sparkles className="h-4 w-4" /> ORAS Shiny Hunter
+                <Sparkles className="h-4 w-4" /> Pixel Shiny Hunter
               </div>
               <h1 className="mt-2 text-2xl font-black leading-tight sm:text-5xl">Pixel hunt tracker</h1>
               <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
-                Start with ORAS DexNav and soft resets now, then expand later into other generations and methods.
+                Track shiny hunts across multiple generations and methods, starting with Gen 6 and Gen 7.
               </p>
             </div>
 
@@ -76,12 +94,18 @@ export default function App() {
               </div>
 
               <div className="space-y-3">
-                <Select label="Generation" value={generation} onChange={setGeneration} options={GEN_OPTIONS} />
+                <Select
+                  label="Generation"
+                  value={generation}
+                  onChange={(value) => setGeneration(value as GenerationId)}
+                  options={GEN_OPTIONS}
+                />
+
                 <Select
                   label="Method"
                   value={method}
                   onChange={(value) => setMethod(value as MethodId)}
-                  options={METHOD_OPTIONS}
+                  options={availableMethods}
                 />
 
                 <div className="rounded-2xl border-4 border-slate-900 bg-white p-3 shadow-[5px_5px_0_0_rgba(15,23,42,1)]">
@@ -110,7 +134,7 @@ export default function App() {
 
             <Stepper label="Current progress" value={progress} onChange={setProgress} max={999999} />
 
-            {method === "dexnav" ? (
+            {isDexNav ? (
               <>
                 <Stepper
                   label="Start search level"
@@ -190,7 +214,7 @@ export default function App() {
               />
             </div>
 
-            {method === "dexnav" ? (
+            {isDexNav ? (
               <DexNavBonusPanel
                 searchLevel={searchLevel}
                 startSearchLevel={startSearchLevel}

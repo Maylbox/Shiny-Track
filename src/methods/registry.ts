@@ -7,12 +7,12 @@ import { masudaMethod } from "./masuda";
 import { randomMethod } from "./random";
 
 export const METHOD_OPTIONS: MethodOption[] = [
-  { value: "random", label: "Random / Soft Reset" },
-  { value: "dexnav", label: "DexNav" },
-  { value: "horde", label: "Horde Encounters" },
-  { value: "masuda", label: "Masuda Method" },
-  { value: "chain_fishing", label: "Chain Fishing" },
-  { value: "friend_safari", label: "Friend Safari" },
+  { value: "random", label: "Random / Soft Reset", generations: ["6", "7"] },
+  { value: "dexnav", label: "DexNav", generations: ["6"] },
+  { value: "horde", label: "Horde Encounters", generations: ["6"] },
+  { value: "masuda", label: "Masuda Method", generations: ["6", "7"] },
+  { value: "chain_fishing", label: "Chain Fishing", generations: ["6"] },
+  { value: "friend_safari", label: "Friend Safari", generations: ["6"] },
 ];
 
 export const METHOD_REGISTRY = {

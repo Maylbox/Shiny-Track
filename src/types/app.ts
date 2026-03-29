@@ -1,13 +1,15 @@
 import type { MethodId } from "./method";
 
+export type GenerationId = "6" | "7";
+
 export type GenerationOption = {
-  value: string;
+  value: GenerationId;
   label: string;
 };
 
 export type AppState = {
   method: MethodId;
-  generation: string;
+  generation: GenerationId;
   shinyCharm: boolean;
   randomBoost: boolean;
   progress: number;

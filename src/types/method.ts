@@ -1,3 +1,5 @@
+import type { GenerationId } from "./app";
+
 export type MethodId =
   | "random"
   | "dexnav"
@@ -28,6 +30,7 @@ export type MethodCalculationResult = {
 export type MethodOption = {
   value: MethodId;
   label: string;
+  generations: GenerationId[];
 };
 
 export type HuntMethodDefinition = {
